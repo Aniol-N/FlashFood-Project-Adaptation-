@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["accept-delete"])) {
         $user->delete();
     }
-
 }
 
 class UserController
@@ -103,7 +102,6 @@ class UserController
         // Si no existe la variable de sesión use, es que no existe una cuenta para borrar.
         if (isset($_SESSION["user"])) {
             $mail = $_SESSION["user"];
-
         } else {
             $_SESSION['error'] = 'Has sido redirigido a la pantalla de Login ya que tu sesión no era válida.';
             echo '<script>window.location.href = "../view/login.php";</script>';
@@ -115,7 +113,6 @@ class UserController
             $stmt->bindParam(':username', $mail, PDO::PARAM_STR);
             $stmt->execute();
             $this->logout();
-
         } catch (PDOException $e) {
             echo "Connection failed: " . $e->getMessage();
         }
@@ -180,6 +177,7 @@ class UserController
         // Obtener datos del formulario
         $username = $_POST["username"];
         $password = $_POST["password"];
+        $fecha_nacimiento = $_POST["fecha_nacimiento"];
 
         $_SESSION["showName"] = $username;
 
@@ -204,10 +202,14 @@ class UserController
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Preparar la consulta SQL
-        $stmt = $this->conn->prepare("INSERT INTO users (email, password, admin) VALUES (:username, :password, :admin)");
+            // añadir fecha_nacimiento en la consulta SQL
+        $stmt = $this->conn->prepare("INSERT INTO users (email, password, admin, fecha_nacimiento) VALUES (:username, :password, :admin, :fecha_nacimiento)");
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashed_password, PDO::PARAM_STR);
         $stmt->bindParam(':admin', $admin, PDO::PARAM_INT);
+        // bind fecha_nacimiento
+        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento, PDO::PARAM_STR);
+        
         // Ejecutar la consulta SQL
         if ($stmt->execute()) {
             // Registro exitoso, establecer variables de sesión y redirigir
@@ -229,8 +231,4 @@ class UserController
             exit();
         }
     }
-
-
 }
-
-?>

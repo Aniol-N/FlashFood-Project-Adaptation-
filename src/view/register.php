@@ -17,7 +17,7 @@ if (isset($_SESSION['error'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="../assets/css/register.css">
-    <script src="../assets/jQuery/jquery-3.7.1.min.js"></script>    
+    <script src="../assets/jQuery/jquery-3.7.1.min.js"></script>
     <script src="../assets/js/jquery.validate.js"></script>
     <script src="../assets/js/additional-methods.js"></script>
     <script src="../assets/js/register-validation.js" defer></script>
@@ -35,7 +35,7 @@ if (isset($_SESSION['error'])) {
                 <div class="center_text">
                     <div class="moverInput">
                         <label>Email: </label><br>
-                            <input id="username" type="text" placeholder="Introduce tus datos..." name="username" required>                
+                        <input id="username" type="text" placeholder="Introduce tus datos..." name="username" required>
                     </div>
                     <div class="moverInput">
                         <label for="pass">Contraseña:</label><br>
@@ -46,17 +46,23 @@ if (isset($_SESSION['error'])) {
                         <input type="password" required id="confirm_password" name="confirm_password" placeholder="Confirma la contraseña..." required>
                     </div>
 
+                    <!-- añadir fecha nacimiento -->
+                    <div class="moverInput">
+                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label><br>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="Tu fecha de nacimiento..." required>
+                    </div>
+                    
                     <div class="moureBotons">
                         <input type="submit" value="Registrar" name="register">
                         <input type="reset" value="Limpiar formulario">
                     </div>
-                    <div id="validationMessage"> </div>   
+                    <div id="validationMessage"> </div>
                     <a href="index.php">
                         <p id="volver">Volver a la página principal</p>
                     </a>
                     <input type="hidden" name="admin" value="false">
                 </div>
-                             
+
             </form>
         </div>
     </div>
